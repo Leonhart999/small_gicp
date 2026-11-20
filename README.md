@@ -10,6 +10,10 @@
 
 Note that GPU-based implementations are NOT included in this package.
 
+> **This fork** additionally contains [`robot_console_plugin/`](robot_console_plugin/README.md): a plugin for the
+> SLAM & AutoNav web console that evaluates SLAM map quality (registration with small_gicp, then accuracy,
+> completeness, F-score and Chamfer distance). The plugin does not change the library.
+
 If you find this package useful for your project, please consider leaving a comment [here](https://github.com/koide3/small_gicp/issues/3). It would help the author receive recognition in his organization and keep working on this project. Please also cite [the corresponding software paper](https://joss.theoj.org/papers/10.21105/joss.06948) if you use this software in an academic work.
 
 

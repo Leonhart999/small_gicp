@@ -1,0 +1,39 @@
+# Map quality evaluation: registers an estimated map onto a reference cloud with small_gicp
+# (https://github.com/koide3/small_gicp, MIT) and computes map metrics (accuracy, completeness, precision,
+# F-score, Chamfer distance). Metric definitions follow MapEval / Cloud_Map_Evaluation (Hu et al., RA-L 2025).
+id: map_eval
+api: 1
+version: 0.1.0
+name: {zh: 地图质量评估, en: Map quality evaluation}
+description:
+  zh: 把一张地图的点云和参考点云（另一张地图，或上传的 PCD/PLY 参考点云）用 small_gicp 配准，然后计算地图指标：精度（距离均值、中位数、RMSE、95% 分位）、完整度、准确率、F 值和倒角距离，并画出按误差着色的俯视图和误差直方图。指标定义参考 MapEval（Hu 等，RA-L 2025）。基于 small_gicp（MIT）。
+  en: 'Registers a map''s point cloud onto a reference cloud (another map, or an uploaded PCD/PLY reference) with small_gicp, then computes map metrics: accuracy (mean, median, RMSE and 95th percentile of the distances), completeness, precision, F-score and Chamfer distance, with a top view coloured by the error and an error histogram. Metric definitions follow MapEval (Hu et al., RA-L 2025). Uses small_gicp (MIT).'
+author: Leonhart999
+license: MIT
+homepage: https://github.com/Leonhart999/small_gicp/tree/master/robot_console_plugin/map_eval
+upstream: https://github.com/koide3/small_gicp
+backend:
+  module: backend
+frontend:
+  dir: ui
+  script: plugin.js
+  style: plugin.css
+python:
+  requirements: ['small_gicp==1.0.1', 'numpy>=1.23,<3', 'pillow>=9', 'pyyaml>=6']
+settings:
+  - key: threads
+    type: integer
+    label: {zh: 线程数, en: Threads}
+    help: {zh: 配准和最近邻搜索用的线程数，0 = 全部 CPU 核。, en: 'Threads for registration and nearest-neighbour search; 0 = all CPU cores.'}
+    min: 0
+    max: 64
+    step: 1
+    default: 0
+  - key: max_upload_mb
+    type: integer
+    label: {zh: 参考点云上传上限 MB, en: Reference upload limit MB}
+    help: {zh: 上传参考点云（PCD/PLY）的大小上限。, en: 'Size limit for uploaded reference clouds (PCD / PLY).'}
+    min: 10
+    max: 20480
+    step: 10
+    default: 2048
